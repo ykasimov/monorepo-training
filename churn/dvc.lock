@@ -1,0 +1,153 @@
+schema: '2.0'
+stages:
+  data_split:
+    cmd: python stages/data_split.py --config=params.yaml
+    deps:
+    - path: data/Churn_Modelling.csv
+      md5: 73fba4fd85b6dbaf95c9d5e3836d3926
+      size: 684860
+    - path: stages/data_split.py
+      md5: 795e8c16dcd8f5b27b85f8d7cc4f7b95
+      size: 1787
+    params:
+      params.yaml:
+        base:
+          project: bank_customer_churn
+          data_dir: data
+          data_fname: Churn_Modelling.csv
+          cat_cols: []
+          num_cols:
+          - CreditScore
+          - Age
+          - Tenure
+          - Balance
+          - NumOfProducts
+          - HasCrCard
+          - IsActiveMember
+          - EstimatedSalary
+          targ_col: Exited
+          random_state: 42
+        data_split:
+          test_size: 0.25
+    outs:
+    - path: data/X_test.pkl
+      md5: 3ca9da2257349324d5eb8bf012fb744f
+      size: 180939
+    - path: data/X_train.pkl
+      md5: 8b2540b34d70405dd5034b2d0586f2a3
+      size: 405948
+    - path: data/X_val.pkl
+      md5: bb910e8ae7e680c6c08364a76675f720
+      size: 135939
+    - path: data/y_test.pkl
+      md5: 43cae56f9c05f8b0498e59c4d48c73f5
+      size: 60613
+    - path: data/y_train.pkl
+      md5: cf0b508517894959cd8f089a9d757175
+      size: 135622
+    - path: data/y_val.pkl
+      md5: 6e7080754981c18d4ab11fd52f4166c5
+      size: 45613
+  train:
+    cmd: python stages/train.py --config=params.yaml
+    deps:
+    - path: data/X_train.pkl
+      md5: 8b2540b34d70405dd5034b2d0586f2a3
+      size: 405948
+    - path: data/X_val.pkl
+      md5: bb910e8ae7e680c6c08364a76675f720
+      size: 135939
+    - path: data/y_train.pkl
+      md5: cf0b508517894959cd8f089a9d757175
+      size: 135622
+    - path: data/y_val.pkl
+      md5: 6e7080754981c18d4ab11fd52f4166c5
+      size: 45613
+    - path: stages/train.py
+      md5: 959e98c0cc5e1161d116a50a158021b3
+      size: 1768
+    params:
+      params.yaml:
+        base:
+          project: bank_customer_churn
+          data_dir: data
+          data_fname: Churn_Modelling.csv
+          cat_cols: []
+          num_cols:
+          - CreditScore
+          - Age
+          - Tenure
+          - Balance
+          - NumOfProducts
+          - HasCrCard
+          - IsActiveMember
+          - EstimatedSalary
+          targ_col: Exited
+          random_state: 42
+        train:
+          models_dir: models
+          model_fname: model.joblib
+          lightgbm:
+            scale_pos_weight: 3
+            n_estimators: 20
+            max_depth: 10
+    outs:
+    - path: dvclive/scalars
+      md5: 543e7a19d7af67c53367d2ae53dcc24c.dir
+      size: 748
+      nfiles: 1
+    - path: models/model.joblib
+      md5: 71f843f45c0b96a5029fcf09e29994d6
+      size: 69675
+  eval:
+    cmd: python stages/eval.py --config=params.yaml
+    deps:
+    - path: data/X_test.pkl
+      md5: 3ca9da2257349324d5eb8bf012fb744f
+      size: 180939
+    - path: data/y_test.pkl
+      md5: 43cae56f9c05f8b0498e59c4d48c73f5
+      size: 60613
+    - path: models/model.joblib
+      md5: 71f843f45c0b96a5029fcf09e29994d6
+      size: 69675
+    - path: stages/eval.py
+      md5: 282db7ac9083a12df5634e44fb7a66c6
+      size: 2012
+    params:
+      params.yaml:
+        base:
+          project: bank_customer_churn
+          data_dir: data
+          data_fname: Churn_Modelling.csv
+          cat_cols: []
+          num_cols:
+          - CreditScore
+          - Age
+          - Tenure
+          - Balance
+          - NumOfProducts
+          - HasCrCard
+          - IsActiveMember
+          - EstimatedSalary
+          targ_col: Exited
+          random_state: 42
+        data_split:
+          test_size: 0.25
+        train:
+          models_dir: models
+          model_fname: model.joblib
+          lightgbm:
+            scale_pos_weight: 3
+            n_estimators: 20
+            max_depth: 10
+    outs:
+    - path: eval_plots/cm.png
+      md5: 3090af24c7cbbb6acd1963f12a4c2454
+      size: 18793
+    - path: eval_plots/plots/roc.json
+      md5: 4f28021fb1b85d75af6de31fdba58036
+      size: 113259
+    - path: metrics.json
+      md5: fd6982d9c0a7468cbf79cb3178a23659
+      size: 67

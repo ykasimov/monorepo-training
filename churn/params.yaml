@@ -1,0 +1,30 @@
+base:
+  project: bank_customer_churn
+  data_dir: data
+  data_fname: Churn_Modelling.csv
+  cat_cols: []
+  num_cols:
+  - CreditScore
+  - Age
+  - Tenure
+  - Balance
+  - NumOfProducts
+  - HasCrCard
+  - IsActiveMember
+  - EstimatedSalary
+  targ_col: Exited
+  random_state: 42
+
+data_split:
+  test_size: 0.25
+
+train:
+  models_dir: models
+  model_fname: model.joblib
+  lightgbm:
+    scale_pos_weight: 3
+    n_estimators: 20
+    max_depth: 10
+
+plots:
+  confusion_matrix: eval_plots/cm.png
