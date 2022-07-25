@@ -89,16 +89,16 @@ stages:
           model_fname: model.joblib
           lightgbm:
             scale_pos_weight: 3
-            n_estimators: 20
+            n_estimators: 30
             max_depth: 10
     outs:
     - path: dvclive/scalars
-      md5: 543e7a19d7af67c53367d2ae53dcc24c.dir
-      size: 748
+      md5: 258dedc6aa1b06c3b8c82dbd23d02f91.dir
+      size: 1114
       nfiles: 1
     - path: models/model.joblib
-      md5: 71f843f45c0b96a5029fcf09e29994d6
-      size: 69675
+      md5: 6938f94da41456e8fa3754376e704c31
+      size: 103245
   eval:
     cmd: python stages/eval.py --config=params.yaml
     deps:
@@ -109,8 +109,8 @@ stages:
       md5: 43cae56f9c05f8b0498e59c4d48c73f5
       size: 60613
     - path: models/model.joblib
-      md5: 71f843f45c0b96a5029fcf09e29994d6
-      size: 69675
+      md5: 6938f94da41456e8fa3754376e704c31
+      size: 103245
     - path: stages/eval.py
       md5: 282db7ac9083a12df5634e44fb7a66c6
       size: 2012
@@ -139,15 +139,15 @@ stages:
           model_fname: model.joblib
           lightgbm:
             scale_pos_weight: 3
-            n_estimators: 20
+            n_estimators: 30
             max_depth: 10
     outs:
     - path: eval_plots/cm.png
-      md5: 3090af24c7cbbb6acd1963f12a4c2454
-      size: 18793
+      md5: cedde57fbac309588c5c24df55081172
+      size: 18849
     - path: eval_plots/plots/roc.json
-      md5: 4f28021fb1b85d75af6de31fdba58036
-      size: 113259
+      md5: b3bb444e620f0a0f9bdfacd3fa6f96da
+      size: 100954
     - path: metrics.json
-      md5: fd6982d9c0a7468cbf79cb3178a23659
+      md5: 3c94d781d5f292d3ba4b7560a6971220
       size: 67
