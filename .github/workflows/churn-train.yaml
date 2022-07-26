@@ -15,7 +15,7 @@ jobs:
         run: |
           cml ci --unshallow
           pip install -r requirements.txt
-          dvc pull        
+          dvc pull -v -r s3_storage       
           dvc repro
       - name: Create CML report
         working-directory: ./churn
