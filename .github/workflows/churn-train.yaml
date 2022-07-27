@@ -1,5 +1,8 @@
 name: churn-train
-on: [push]
+on:
+  push:
+    paths:
+      - churn/**
 jobs:
   run:
     runs-on: ubuntu-latest
