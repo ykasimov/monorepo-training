@@ -3,7 +3,7 @@ stages:
     cmd: python stages/data_split.py --config=params.yaml
     deps:
       - stages/data_split.py
-      - ${base.data_dir}/${base.data_fname}
+      - data/${base.data_fname}
     params:
       - base
       - data_split
