@@ -3,7 +3,7 @@ stages:
     cmd: python stages/data_split.py --config=params.yaml
     deps:
       - stages/data_split.py
-      - data/${base.data_fname}
+      - data/Churn_Modelling.csv
     params:
       - base
       - data_split
