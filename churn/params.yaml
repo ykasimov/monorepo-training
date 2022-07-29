@@ -22,9 +22,9 @@ train:
   models_dir: models
   model_fname: model.joblib
   lightgbm:
-    scale_pos_weight: 2
-    n_estimators: 50
-    max_depth: 10
+    scale_pos_weight: 3
+    n_estimators: 200
+    max_depth: 20
 
 plots:
   confusion_matrix: eval_plots/cm.png
