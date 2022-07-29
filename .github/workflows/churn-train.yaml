@@ -35,4 +35,6 @@ jobs:
 
           # Publish confusion matrix diff
           echo "## Plots" >> report.md
+          cml publish eval_plots/cm.png --title  "Confusion matrix" --md >> report.md 
+          
           cml send-comment report.md
