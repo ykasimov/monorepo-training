@@ -22,7 +22,7 @@ train:
   models_dir: models
   model_fname: model.joblib
   lightgbm:
-    scale_pos_weight: 3
+    scale_pos_weight: 2
     n_estimators: 50
     max_depth: 10
 
