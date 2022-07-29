@@ -30,6 +30,7 @@ jobs:
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cml pr --squash --skip-ci .
           echo "## Metrics" >> report.md
           dvc metrics diff main --show-md >> report.md
 
